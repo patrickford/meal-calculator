@@ -28,29 +28,20 @@ Meal.prototype.total = function () {
   return result;    
 }
 
-
-
 var cocktail = new Item('cocktail', 10);
-
 var appetizer = new Item('appetizer', 15);
-
 var entree = new Item('entree', 25);
-
 var dessert = new Item('dessert', 10);
-
 var coffee = new Item('coffee', 4);
 
-var meal = new Meal();
-var hillary = new Guest("Hillary", meal);
-var meal = new Meal();
-var daniel = new Guest("Daniel", meal);
-var meal = new Meal();
-var patrick = new Guest("Patrick", meal);
-var meal = new Meal();
-var donald = new Guest("Donald", meal);
+
+var hillary = new Guest("Hillary", new Meal());
+var daniel = new Guest("Daniel", new Meal());
+var patrick = new Guest("Patrick", new Meal());
+var donald = new Guest("Donald", new Meal());
 
 var myParty = new Party();
-myParty.addGuest(hillary);
+//myParty.addGuest(hillary);
 
 
 hillary.meal.addItem(cocktail);
