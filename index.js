@@ -28,6 +28,7 @@ Party.prototype.totalBill = function() {
   for (var i = 0; i < this.guests.length; i ++) {
     result += this.guests[i].bill();
   }
+  console.log("Meal total: $" + result.toFixed(2));
   return result;    
 }
 
@@ -84,4 +85,4 @@ donald.meal.addItem(appetizer);
 donald.meal.addItem(entree);
 donald.meal.addItem(coffee);
 
-console.log("Meal total: $" + myParty.totalBill().toFixed(2));
+myParty.totalBill();
