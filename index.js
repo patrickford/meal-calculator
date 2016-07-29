@@ -1,10 +1,13 @@
+var taxRate = 0.08;
+
 var Party = function() {
   this.guests = [];
 }
 
-var Guest = function(name, meal) {
+var Guest = function(name, meal, tipPercent) {
   this.name = name;
   this.meal = meal;
+  this.standardTip = tipPercent;
 }
 
 var Meal = function() {
@@ -14,6 +17,29 @@ var Meal = function() {
 var Item = function(name, cost) {
   this.name = name;
   this.cost = cost;
+}
+
+Party.prototype.addGuest = function(guest) {
+  this.guests.push(guest);
+}
+
+Party.prototype.totalBill = function() {
+  var result = 0;
+  for (var i = 0; i < this.guests.length; i ++) {
+    result += this.guests[i].bill();
+  }
+  return result;    
+}
+
+Guest.prototype.bill = function() {
+  var result = 0;
+  for (var i = 0; i < this.meal.items.length; i ++) {
+    result += this.meal.items[i].cost;
+  }
+  result += result * this.standardTip;
+  result += result * taxRate;
+  console.log(this.name + " paid " + "$" + result.toFixed(2));
+  return result;    
 }
 
 Meal.prototype.addItem = function(item) {
@@ -35,14 +61,16 @@ var dessert = new Item('dessert', 10);
 var coffee = new Item('coffee', 4);
 
 
-var hillary = new Guest("Hillary", new Meal());
-var daniel = new Guest("Daniel", new Meal());
-var patrick = new Guest("Patrick", new Meal());
-var donald = new Guest("Donald", new Meal());
+var hillary = new Guest("Hillary", new Meal(), .18);
+var daniel = new Guest("Daniel", new Meal(), .20);
+var patrick = new Guest("Patrick", new Meal(), .20);
+var donald = new Guest("Donald", new Meal(), .15);
 
 var myParty = new Party();
-//myParty.addGuest(hillary);
-
+myParty.addGuest(hillary);
+myParty.addGuest(daniel);
+myParty.addGuest(patrick);
+myParty.addGuest(donald);
 
 hillary.meal.addItem(cocktail);
 hillary.meal.addItem(appetizer);
@@ -56,6 +84,4 @@ donald.meal.addItem(appetizer);
 donald.meal.addItem(entree);
 donald.meal.addItem(coffee);
 
-console.log(hillary.meal.total());
-
-
+console.log("Meal total: $" + myParty.totalBill().toFixed(2));
